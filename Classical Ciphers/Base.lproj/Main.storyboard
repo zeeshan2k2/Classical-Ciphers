@@ -63,7 +63,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Enter Text Here" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oIZ-0K-f1P">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Text Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oIZ-0K-f1P">
                                 <rect key="frame" x="44" y="149" width="305" height="34"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -72,7 +72,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cNN-R0-kZT">
-                                <rect key="frame" x="44" y="278" width="305" height="240"/>
+                                <rect key="frame" x="44" y="293" width="305" height="225"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">This is the entered string: 
 Whvw Vwulqj iru Hqfrglqj AACCDDEE ..? 
@@ -80,7 +80,7 @@ Whvw Vwulqj iru Hqfrglqj AACCDDEE ..?
 This is the Decoded string: 
 Test String for Encoding XXZZAABB ..?</string>
                                 <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="49" translatesAutoresizingMaskIntoConstraints="NO" id="K8s-9U-SeO">
@@ -92,6 +92,9 @@ Test String for Encoding XXZZAABB ..?</string>
                                         <color key="tintColor" systemColor="systemGreenColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Encode"/>
+                                        <connections>
+                                            <action selector="encodeButtonTapped:" destination="6e3-Ww-HQn" eventType="touchUpInside" id="Zct-oX-VlX"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQB-kB-5U0">
                                         <rect key="frame" x="132.33333333333331" y="0.0" width="83.333333333333314" height="42.333333333333336"/>
@@ -99,6 +102,9 @@ Test String for Encoding XXZZAABB ..?</string>
                                         <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="0.46999172185430466" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Decode"/>
+                                        <connections>
+                                            <action selector="decodeButtonTapped:" destination="6e3-Ww-HQn" eventType="touchUpInside" id="PAJ-Fv-C1F"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -110,7 +116,7 @@ Test String for Encoding XXZZAABB ..?</string>
                             <constraint firstItem="oIZ-0K-f1P" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="44" id="G9p-OO-aqC"/>
                             <constraint firstItem="oIZ-0K-f1P" firstAttribute="top" secondItem="1tZ-Q8-N2X" secondAttribute="top" constant="90" id="M5n-QQ-Seu"/>
                             <constraint firstItem="K8s-9U-SeO" firstAttribute="top" secondItem="oIZ-0K-f1P" secondAttribute="bottom" constant="28" id="QII-e8-gga"/>
-                            <constraint firstItem="cNN-R0-kZT" firstAttribute="top" secondItem="K8s-9U-SeO" secondAttribute="bottom" constant="24.666667938232422" id="SUI-ir-Vz3"/>
+                            <constraint firstItem="cNN-R0-kZT" firstAttribute="top" secondItem="K8s-9U-SeO" secondAttribute="bottom" constant="39.666667938232422" id="SUI-ir-Vz3"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="cNN-R0-kZT" secondAttribute="trailing" constant="44" id="Y2H-2z-mDl"/>
                             <constraint firstItem="K8s-9U-SeO" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="88.666666666666686" id="fjk-4D-ltf"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="K8s-9U-SeO" secondAttribute="trailing" constant="88.666666666666686" id="h6o-Ec-5g3"/>
@@ -119,6 +125,12 @@ Test String for Encoding XXZZAABB ..?</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5WJ-5n-frm"/>
+                    <connections>
+                        <outlet property="decodeBtn" destination="SQB-kB-5U0" id="0i6-fX-6Ps"/>
+                        <outlet property="encodeBtn" destination="hTE-dN-yI6" id="qU0-8J-cT2"/>
+                        <outlet property="text" destination="cNN-R0-kZT" id="gah-JU-ctV"/>
+                        <outlet property="textField" destination="oIZ-0K-f1P" id="oAN-Ey-UPl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ha6-Oy-VIq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
