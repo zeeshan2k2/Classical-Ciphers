@@ -26,23 +26,21 @@ class DetailViewController: UIViewController {
     
     @IBOutlet var decodeBtn: UIButton!
     
-    @IBOutlet var text: UITextView!
+    @IBOutlet var textView: UITextView!
     
+    @IBOutlet var textHeightConstraint: NSLayoutConstraint!
     
     var yourChoice: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         view.backgroundColor = .white
         title = cellTitle
         
         encodeBtn.layer.cornerRadius = 15
         decodeBtn.layer.cornerRadius = 15
-        
     }
-    
     
     
     @IBAction func encodeButtonTapped(_ sender: Any) {
@@ -68,8 +66,6 @@ class DetailViewController: UIViewController {
         var num: Int = 0
         let enteredString = textField.text
         let words = enteredString!.split(separator: "")
-//        implementation(enteredString!)
-//        let yourChoice = you
         for word in words {
             let instances = word.split(separator: "")
             var instanceNumber = 0
@@ -91,13 +87,17 @@ class DetailViewController: UIViewController {
         }
         sentence = wordArray.joined()
         
-        text.text = """
+        textView.text = """
                     This is the entered string:
                     \(enteredString!)
                     
-                    This is the \(yourChoice == "1" ? "Encoded": "Decoded") string:
+                    This is the \(yourChoice == "encode" ? "Encoded": "Decoded") string:
                     \(sentence)
                     """
+    }
+    
+    func vinegere(yourChoice: String) {
+        
     }
         
     
