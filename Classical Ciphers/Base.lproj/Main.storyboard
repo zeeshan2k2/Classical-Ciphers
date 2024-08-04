@@ -63,16 +63,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0k-oj-cKJ">
+                                <rect key="frame" x="0.0" y="99" width="393" height="59"/>
+                                <color key="backgroundColor" red="0.54120232679073821" green="0.5893505706140747" blue="0.61560921717171713" alpha="0.12199917218543047" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Text Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oIZ-0K-f1P">
-                                <rect key="frame" x="44" y="149" width="305" height="34"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="44" y="113" width="305" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cNN-R0-kZT">
-                                <rect key="frame" x="44" y="293" width="305" height="225"/>
+                                <rect key="frame" x="44" y="279" width="305" height="239"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">This is the entered string: 
 Whvw Vwulqj iru Hqfrglqj AACCDDEE ..? 
@@ -84,7 +88,7 @@ Test String for Encoding XXZZAABB ..?</string>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="49" translatesAutoresizingMaskIntoConstraints="NO" id="K8s-9U-SeO">
-                                <rect key="frame" x="88.666666666666671" y="211" width="215.66666666666663" height="42.333333333333343"/>
+                                <rect key="frame" x="88.666666666666671" y="197" width="215.66666666666663" height="42.333333333333343"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTE-dN-yI6">
                                         <rect key="frame" x="0.0" y="0.0" width="83.333333333333329" height="42.333333333333336"/>
@@ -114,14 +118,18 @@ Test String for Encoding XXZZAABB ..?</string>
                         <constraints>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="oIZ-0K-f1P" secondAttribute="trailing" constant="44" id="Bgy-Cz-XMs"/>
                             <constraint firstItem="oIZ-0K-f1P" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="44" id="G9p-OO-aqC"/>
-                            <constraint firstItem="oIZ-0K-f1P" firstAttribute="top" secondItem="1tZ-Q8-N2X" secondAttribute="top" constant="90" id="M5n-QQ-Seu"/>
-                            <constraint firstItem="K8s-9U-SeO" firstAttribute="top" secondItem="oIZ-0K-f1P" secondAttribute="bottom" constant="28" id="QII-e8-gga"/>
+                            <constraint firstItem="oIZ-0K-f1P" firstAttribute="top" secondItem="1tZ-Q8-N2X" secondAttribute="top" constant="54" id="M5n-QQ-Seu"/>
+                            <constraint firstItem="K8s-9U-SeO" firstAttribute="top" secondItem="oIZ-0K-f1P" secondAttribute="bottom" constant="50" id="QII-e8-gga"/>
                             <constraint firstItem="cNN-R0-kZT" firstAttribute="top" secondItem="K8s-9U-SeO" secondAttribute="bottom" constant="39.666667938232422" id="SUI-ir-Vz3"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="cNN-R0-kZT" secondAttribute="trailing" constant="44" id="Y2H-2z-mDl"/>
+                            <constraint firstItem="Z0k-oj-cKJ" firstAttribute="trailing" secondItem="1tZ-Q8-N2X" secondAttribute="trailing" id="ZEV-3K-uRw"/>
                             <constraint firstItem="K8s-9U-SeO" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="88.666666666666686" id="fjk-4D-ltf"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="K8s-9U-SeO" secondAttribute="trailing" constant="88.666666666666686" id="h6o-Ec-5g3"/>
+                            <constraint firstItem="K8s-9U-SeO" firstAttribute="top" secondItem="Z0k-oj-cKJ" secondAttribute="bottom" constant="39" id="ijI-La-rgl"/>
                             <constraint firstItem="cNN-R0-kZT" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="44" id="kQ7-g9-zCE"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="bottom" secondItem="cNN-R0-kZT" secondAttribute="bottom" constant="300" id="nFA-Qy-oVl"/>
+                            <constraint firstItem="Z0k-oj-cKJ" firstAttribute="top" secondItem="1tZ-Q8-N2X" secondAttribute="top" constant="40" id="rEb-Tm-9t4"/>
+                            <constraint firstItem="Z0k-oj-cKJ" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" id="uBW-4m-QYq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5WJ-5n-frm"/>
@@ -134,7 +142,7 @@ Test String for Encoding XXZZAABB ..?</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ha6-Oy-VIq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1105" y="-2"/>
+            <point key="canvasLocation" x="1104.5801526717557" y="-2.1126760563380285"/>
         </scene>
     </scenes>
     <resources>
