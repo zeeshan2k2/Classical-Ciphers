@@ -64,19 +64,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0k-oj-cKJ">
-                                <rect key="frame" x="0.0" y="99" width="393" height="59"/>
+                                <rect key="frame" x="0.0" y="99" width="393" height="100"/>
                                 <color key="backgroundColor" red="0.54120232679073821" green="0.5893505706140747" blue="0.61560921717171713" alpha="0.12199917218543047" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Text Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oIZ-0K-f1P">
-                                <rect key="frame" x="44" y="113" width="305" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Text Here" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oIZ-0K-f1P">
+                                <rect key="frame" x="34" y="113" width="325" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="49" translatesAutoresizingMaskIntoConstraints="NO" id="K8s-9U-SeO">
-                                <rect key="frame" x="88.666666666666671" y="197" width="215.66666666666663" height="42.333333333333343"/>
+                                <rect key="frame" x="88.666666666666671" y="238.00000000000003" width="215.66666666666663" height="42.333333333333343"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTE-dN-yI6">
                                         <rect key="frame" x="0.0" y="0.0" width="83.333333333333329" height="42.333333333333336"/>
@@ -101,7 +101,7 @@
                                 </subviews>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cNN-R0-kZT">
-                                <rect key="frame" x="44" y="280" width="305" height="520"/>
+                                <rect key="frame" x="44" y="321" width="305" height="479"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">This is the entered string: 
 XYZ 
@@ -112,38 +112,51 @@ ABC</string>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YEB-KU-Sdp">
+                                <rect key="frame" x="34" y="155" width="325" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1tZ-Q8-N2X"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cNN-R0-kZT" firstAttribute="top" secondItem="K8s-9U-SeO" secondAttribute="bottom" constant="40.666666666666657" id="2cl-KV-k45"/>
+                            <constraint firstItem="YEB-KU-Sdp" firstAttribute="top" secondItem="oIZ-0K-f1P" secondAttribute="bottom" constant="8" symbolic="YES" id="4xA-hc-HW2"/>
                             <constraint firstItem="cNN-R0-kZT" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="44" id="8pe-6m-hAj"/>
-                            <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="oIZ-0K-f1P" secondAttribute="trailing" constant="44" id="Bgy-Cz-XMs"/>
+                            <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="oIZ-0K-f1P" secondAttribute="trailing" constant="34" id="Bgy-Cz-XMs"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="bottom" secondItem="cNN-R0-kZT" secondAttribute="bottom" constant="18" id="D4M-ps-V3Q"/>
-                            <constraint firstItem="oIZ-0K-f1P" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="44" id="G9p-OO-aqC"/>
+                            <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="YEB-KU-Sdp" secondAttribute="trailing" constant="34" id="Fy7-pD-mUr"/>
+                            <constraint firstItem="oIZ-0K-f1P" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="34" id="G9p-OO-aqC"/>
                             <constraint firstItem="oIZ-0K-f1P" firstAttribute="top" secondItem="1tZ-Q8-N2X" secondAttribute="top" constant="54" id="M5n-QQ-Seu"/>
-                            <constraint firstItem="K8s-9U-SeO" firstAttribute="top" secondItem="oIZ-0K-f1P" secondAttribute="bottom" constant="50" id="QII-e8-gga"/>
+                            <constraint firstItem="K8s-9U-SeO" firstAttribute="top" secondItem="oIZ-0K-f1P" secondAttribute="bottom" constant="91" id="QII-e8-gga"/>
+                            <constraint firstItem="K8s-9U-SeO" firstAttribute="top" secondItem="Z0k-oj-cKJ" secondAttribute="bottom" constant="39.000000000000028" id="Yh6-Wn-mdz"/>
                             <constraint firstItem="Z0k-oj-cKJ" firstAttribute="trailing" secondItem="1tZ-Q8-N2X" secondAttribute="trailing" id="ZEV-3K-uRw"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="cNN-R0-kZT" secondAttribute="trailing" constant="44" id="btH-rd-ESy"/>
+                            <constraint firstItem="YEB-KU-Sdp" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="34" id="dPP-Fb-ZXU"/>
                             <constraint firstItem="K8s-9U-SeO" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="88.666666666666686" id="fjk-4D-ltf"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="K8s-9U-SeO" secondAttribute="trailing" constant="88.666666666666686" id="h6o-Ec-5g3"/>
-                            <constraint firstItem="K8s-9U-SeO" firstAttribute="top" secondItem="Z0k-oj-cKJ" secondAttribute="bottom" constant="39" id="ijI-La-rgl"/>
                             <constraint firstItem="Z0k-oj-cKJ" firstAttribute="top" secondItem="1tZ-Q8-N2X" secondAttribute="top" constant="40" id="rEb-Tm-9t4"/>
                             <constraint firstItem="Z0k-oj-cKJ" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" id="uBW-4m-QYq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5WJ-5n-frm"/>
                     <connections>
+                        <outlet property="cipherTextField" destination="YEB-KU-Sdp" id="ZwU-cR-cRX"/>
                         <outlet property="decodeBtn" destination="SQB-kB-5U0" id="0i6-fX-6Ps"/>
                         <outlet property="encodeBtn" destination="hTE-dN-yI6" id="qU0-8J-cT2"/>
                         <outlet property="textField" destination="oIZ-0K-f1P" id="oAN-Ey-UPl"/>
+                        <outlet property="textFieldBgView" destination="Z0k-oj-cKJ" id="aDE-1l-ucS"/>
                         <outlet property="textHeightConstraint" destination="cNN-R0-kZT" id="zvd-9c-xal"/>
                         <outlet property="textView" destination="cNN-R0-kZT" id="TNz-e7-9Ui"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ha6-Oy-VIq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1104.5801526717557" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="756.48854961832058" y="-8.4507042253521139"/>
         </scene>
     </scenes>
     <resources>
