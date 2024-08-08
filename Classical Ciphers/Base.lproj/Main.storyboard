@@ -128,6 +128,7 @@ ABC</string>
                             <constraint firstItem="YEB-KU-Sdp" firstAttribute="top" secondItem="oIZ-0K-f1P" secondAttribute="bottom" constant="8" symbolic="YES" id="4xA-hc-HW2"/>
                             <constraint firstItem="cNN-R0-kZT" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="44" id="8pe-6m-hAj"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="oIZ-0K-f1P" secondAttribute="trailing" constant="34" id="Bgy-Cz-XMs"/>
+                            <constraint firstItem="Z0k-oj-cKJ" firstAttribute="top" secondItem="oIZ-0K-f1P" secondAttribute="bottom" constant="-48" id="CxS-Ag-lfu"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="bottom" secondItem="cNN-R0-kZT" secondAttribute="bottom" constant="18" id="D4M-ps-V3Q"/>
                             <constraint firstItem="1tZ-Q8-N2X" firstAttribute="trailing" secondItem="YEB-KU-Sdp" secondAttribute="trailing" constant="34" id="Fy7-pD-mUr"/>
                             <constraint firstItem="oIZ-0K-f1P" firstAttribute="leading" secondItem="1tZ-Q8-N2X" secondAttribute="leading" constant="34" id="G9p-OO-aqC"/>

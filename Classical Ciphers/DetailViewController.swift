@@ -44,35 +44,14 @@ class DetailViewController: UIViewController {
         view.backgroundColor = .white
         title = cellTitle
         
+        textView.isEditable = false
+        
         if cellTitle! == "Caesar Cipher" {
             cipherTextField.placeholder = "Enter Shift Value"
         } else if cellTitle! == "Vigenere Cipher" {
             cipherTextField.placeholder = "Cipher Key"
         } else if cellTitle! == "Polyalphabetic Cipher" {
             cipherTextField.isHidden = true
-            
-            textFieldBgView.translatesAutoresizingMaskIntoConstraints = false
-                self.view.addSubview(textFieldBgView)
-                
-                // Add constraints
-                NSLayoutConstraint.activate([
-                    // Top constraint: 40 points below the safe area
-                    textFieldBgView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 40),
-                    
-                    // Left and Right constraints: 0 points from the edges
-                    textFieldBgView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-                    textFieldBgView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-                    
-                    // Height constraint: 60 points
-                    textFieldBgView.heightAnchor.constraint(equalToConstant: 60)
-                ])
-            
-    
-                
-//            textFieldBgView.frame.size.height = 200
-//            textFieldBgView.constraints.
-//            textFieldBgView.frame.size.height = 60
-//            print(textFieldBgView.frame.height)
         }
         
         encodeBtn.layer.cornerRadius = 15
@@ -161,18 +140,18 @@ class DetailViewController: UIViewController {
                     """
 
         }
+        
     }
     
     
     
     func vigenereCipher(yourChoice: String) {
-//        cipherTextField.placeholder = "Cipher Key"
         var myDict: [String: [String]] = [:]
         var allLetters: [String] = []
         var index: Int = 0
         let cipher = cipherTextField.text!
         var cipheredText = ""
-        let enteredString = textField.text
+        let enteredString = textField.text?.lowercased()
         
         var keyIndex = 0
         for i in alphabet {
@@ -267,21 +246,19 @@ class DetailViewController: UIViewController {
         var isNext = 0
         
         var forDecode = 0
+        
 
         for char in enteredTextArray {
           let indexNumber = alphabet.firstIndex(of: String(char))
           if isNext == 0 {
             answerArray.append(array1[indexNumber!])
             isNext = 1
-            forDecode = 0
           } else if isNext == 1 {
             answerArray.append(array2[indexNumber!])
             isNext = 2
-            forDecode = 1
           } else if isNext == 2 {
             answerArray.append(array3[indexNumber!])
             isNext = 0
-            forDecode = 2
           }
           print(indexNumber!)
         }
@@ -290,22 +267,25 @@ class DetailViewController: UIViewController {
 
         var decodeArray: [Character] = []
 
-        for char in answerArray {
+        var enteredStringCount = enteredString.count
+        
+        for char in enteredString {
 
-          if forDecode == 2 {
-            let indexNumber = array3.firstIndex(of: char)
-            decodeArray.append(Character(alphabet[indexNumber!]))
-//            isNext = 1
-              forDecode = 1
-          } else if forDecode == 1 {let indexNumber = array2.firstIndex(of: char)
-            decodeArray.append(Character(alphabet[indexNumber!]))
-//            isNext = 2
-              forDecode = 2
-          } else if forDecode == 0 {
+          if isNext == 0 {
             let indexNumber = array1.firstIndex(of: char)
             decodeArray.append(Character(alphabet[indexNumber!]))
-//            isNext = 0
-              forDecode = 0
+            isNext = 1
+
+          } else if isNext == 1 {
+            let indexNumber = array2.firstIndex(of: char)
+            decodeArray.append(Character(alphabet[indexNumber!]))
+            isNext = 2
+
+          } else if isNext == 2 {
+            let indexNumber = array3.firstIndex(of: char)
+            decodeArray.append(Character(alphabet[indexNumber!]))
+            isNext = 0
+
           }
         }
 
