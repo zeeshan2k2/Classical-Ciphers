@@ -18,7 +18,9 @@ class DetailViewController: UIViewController {
     
     let specialCharacters: [String] = [   "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+",
                                           "[", "]", "{", "}", "\\", "|", ";", ":", "'", "\"", ",", ".", "<", ">",
-                                          "/", "?", "`", "~", "§", "±", "•", "∞", "¶", "€", "£", "¥", "©", "®", "™"      ]
+                                          "/", "?", "`", "~", "§", "±", "•", "∞", "¶", "€", "£", "¥", "©", "®", "™", "\"", " "    ]
+    
+    let numbers: [String] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     
     var cellTitle: String?
     
@@ -47,6 +49,7 @@ class DetailViewController: UIViewController {
         textView.isEditable = false
         
         if cellTitle! == "Caesar Cipher" {
+            cipherTextField.keyboardType = .numberPad
             cipherTextField.placeholder = "Enter Shift Value"
         } else if cellTitle! == "Vigenere Cipher" {
             cipherTextField.placeholder = "Cipher Key"
@@ -54,16 +57,31 @@ class DetailViewController: UIViewController {
             cipherTextField.isHidden = true
         }
         
+        
+        textColor(enteredTextField: textField)
+        textColor(enteredTextField: cipherTextField)
+        
         encodeBtn.layer.cornerRadius = 15
         decodeBtn.layer.cornerRadius = 15
-    }
-    
-    func isTextFieldEmpty() {
         
+        // Create the toolbar and set it up
+       let toolbar = UIToolbar()
+       toolbar.sizeToFit()
+       
+       let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+       let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+       toolbar.setItems([flexibleSpace, doneButton], animated: false)
+       
+       // Assign the toolbar to both text fields
+       textField.inputAccessoryView = toolbar
+       cipherTextField.inputAccessoryView = toolbar
     }
     
-    
-    
+    @objc func doneButtonTapped() {
+        textField.resignFirstResponder()
+        cipherTextField.resignFirstResponder()
+    }
+
     
     @IBAction func encodeButtonTapped(_ sender: Any) {
         if cellTitle! == "Caesar Cipher" {
@@ -88,9 +106,20 @@ class DetailViewController: UIViewController {
     }
     
     
+    func textColor(enteredTextField: UITextField) {
+        enteredTextField.textColor = UIColor { traitCollection in
+            // Check if the user interface style is dark or light
+            if traitCollection.userInterfaceStyle == .dark {
+                return .white // Color for dark mode
+            } else {
+                return .black // Color for light mode
+            }
+        }
+
+    }
+    
     func implementation(typeOfCipher: String, yourChoice: String) {
         if typeOfCipher == "Caesar Cipher" {
-            cipherTextField.keyboardType = .numberPad
             caesarCipher(yourChoice: yourChoice)
         } else if typeOfCipher == "Vigenere Cipher" {
             vigenereCipher(yourChoice: yourChoice)
@@ -100,7 +129,6 @@ class DetailViewController: UIViewController {
     }
     
     func caesarCipher(yourChoice: String) {
-//        cipherTextField.placeholder = "Enter Shift Value"
         
         if textField.text?.isEmpty == true || cipherTextField.text?.isEmpty == true {
             textView.text = "Enter valid input"
@@ -157,14 +185,18 @@ class DetailViewController: UIViewController {
     
     
     
+    
     func vigenereCipher(yourChoice: String) {
+        
         if textField.text?.isEmpty == true || cipherTextField.text?.isEmpty == true {
             textView.text = "Enter valid input"
+        } else if cipherTextField.text?.contains(where: { $0.isNumber }) == true || cipherTextField.text?.rangeOfCharacter(from: .punctuationCharacters.union(.symbols).union(.punctuationCharacters)) != nil {
+            textView.text = "Enter valid cipher key (remove numbers and special characters)"
         } else {
             var myDict: [String: [String]] = [:]
             var allLetters: [String] = []
             var index: Int = 0
-            let cipher = cipherTextField.text!
+            let cipher = cipherTextField.text!.lowercased()
             var cipheredText = ""
             let enteredString = textField.text?.lowercased()
             
@@ -193,38 +225,51 @@ class DetailViewController: UIViewController {
                 }
             }
             
-            //        let myDictOrdered = myDict.sorted { $0.key < $1.key }
             var number = 0
             let characters = Array(cipheredText)
             // Initialize the array to store the results
             var answerString: [Character] = []
             // Iterate over each character in the string
             for char in enteredString! {
-                
-                if let value = myDict[String(char)] {
-                    let num = alphabet.firstIndex(of: String(characters[number]))
-                    let dictLetter = value[num!]
-                    answerString.append(Character(dictLetter))
-                } else {
-                    print("Key: \(char) not found in dictionary.")
-                }
-                number += 1
+                    print(char)
+                    if let value = myDict[String(char)] {
+                        let num = alphabet.firstIndex(of: String(characters[number]))
+                        let dictLetter = value[num!]
+                        answerString.append(Character(dictLetter))
+                    } else {
+                        answerString.append(char)
+                        print("Key: \(char) not found in dictionary for encoding.")
+                    }
+                    number += 1
+
             }
             
             let encodedAnswer = String(answerString)
             var decodedString: [Character] = []
-            var count = encodedAnswer.count
             let enteredStringArray = Array(enteredString!)
             var numberForDecoded = 0
+            var num1 = 0
+            
             // to decode
             for char in cipheredText {
-                if let value = myDict[String(char)] {
-                    let num = value.firstIndex(of: String(enteredStringArray[numberForDecoded]))
-                    let dictLetter = alphabet[num!]
-                    decodedString.append(Character(dictLetter))
-                    numberForDecoded += 1
+                if specialCharacters.contains(String(char)) {
+                    decodedString.append(char)
                 } else {
-                    print("Key: \(char) not found in dictionary.")
+                    if let value = myDict[String(char)] {
+                        let num = value.firstIndex(of: String(enteredStringArray[numberForDecoded]))
+                        if num == nil {
+                            decodedString.append(enteredStringArray[num1])
+                        } else {
+                            let dictLetter = alphabet[num!]
+                            decodedString.append(Character(dictLetter))
+                            numberForDecoded += 1
+                        }
+                        
+                        num1 += 1
+                        
+                    } else {
+                        print("Key: \(char) not found in dictionary for decoding.")
+                    }
                 }
             }
             
@@ -234,13 +279,14 @@ class DetailViewController: UIViewController {
             let sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
             
             textView.text = """
-                    This is the entered string:
-                    \(enteredString!)
-                    
-                    This is the \(yourChoice == "encode" ? "Encoded": "Decoded") string:
-                    \(sentence)
-                    """
+                This is the entered string:
+                \(enteredString!)
+                
+                This is the \(yourChoice == "encode" ? "Encoded": "Decoded") string:
+                \(sentence)
+                """
         }
+        
     }
     
     
@@ -251,7 +297,7 @@ class DetailViewController: UIViewController {
         let array2: [Character] = ["g", "h", "w", "r", "j", "c", "o", "e", "s", "f", "a", "l", "m", "n", "p", "t", "u", "v", "x", "y", "i", "d", "k", "q", "b", "z"]
         let array3: [Character] = ["l", "d", "k", "w", "b", "y", "z", "t", "q", "i", "p", "x", "e", "c", "f", "h", "a", "u", "m", "n", "r", "v", "j", "o", "s", "g"]
 
-        let enteredString: String = textField.text!
+        let enteredString: String = textField.text!.lowercased()
 
         let enteredTextArray = Array(enteredString)
 
@@ -263,66 +309,75 @@ class DetailViewController: UIViewController {
         
         var forDecode = 0
         
-
-        for char in enteredTextArray {
-          let indexNumber = alphabet.firstIndex(of: String(char))
-          if isNext == 0 {
-            answerArray.append(array1[indexNumber!])
-            isNext = 1
-          } else if isNext == 1 {
-            answerArray.append(array2[indexNumber!])
-            isNext = 2
-          } else if isNext == 2 {
-            answerArray.append(array3[indexNumber!])
-            isNext = 0
-          }
-          print(indexNumber!)
-        }
-
-        var encodedAnswer = String(answerArray)
-
-        var decodeArray: [Character] = []
-
-        var enteredStringCount = enteredString.count
-        
-        for char in enteredTextArray {
-
-            if forDecode == 0 {
-                let indexNumber = array1.firstIndex(of: char)
-                decodeArray.append(Character(alphabet[indexNumber!]))
-                forDecode = 1
-                print(indexNumber!)
-
-            } else if forDecode == 1 {
-                let indexNumber = array2.firstIndex(of: char)
-                decodeArray.append(Character(alphabet[indexNumber!]))
-                forDecode = 2
-                print(indexNumber!)
-
-            } else if forDecode == 2 {
-                let indexNumber = array3.firstIndex(of: char)
-                decodeArray.append(Character(alphabet[indexNumber!]))
-                forDecode = 0
-                print(indexNumber!)
-
+        if textField.text?.isEmpty == true {
+            textView.text = "Enter valid input"
+        } else {
+            for char in enteredTextArray {
+                let indexNumber = alphabet.firstIndex(of: String(char))
+                
+                if specialCharacters.contains(String(char)) || numbers.contains(String(char)) {
+                    answerArray.append(char)
+                } else {
+                    if isNext == 0 {
+                        answerArray.append(array1[indexNumber!])
+                        isNext = 1
+                    } else if isNext == 1 {
+                        answerArray.append(array2[indexNumber!])
+                        isNext = 2
+                    } else if isNext == 2 {
+                        answerArray.append(array3[indexNumber!])
+                        isNext = 0
+                    }
+                }
             }
-        }
-
-        var decodedAnswer = String(decodeArray)
-
-        print("This is the encoded answer: \(encodedAnswer)")
-        print()
-        print("This is the decoded answer: \(decodedAnswer)")
-
-        let sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
-
-        textView.text = """
+            
+            let encodedAnswer = String(answerArray)
+            
+            var decodeArray: [Character] = []
+            
+            for char in enteredTextArray {
+                if specialCharacters.contains(String(char)) || numbers.contains(String(char)) {
+                    decodeArray.append(char)
+                } else {
+                    if forDecode == 0 {
+                        let indexNumber = array1.firstIndex(of: char)
+                        decodeArray.append(Character(alphabet[indexNumber!]))
+                        forDecode = 1
+                        print(indexNumber!)
+                        
+                    } else if forDecode == 1 {
+                        let indexNumber = array2.firstIndex(of: char)
+                        decodeArray.append(Character(alphabet[indexNumber!]))
+                        forDecode = 2
+                        print(indexNumber!)
+                        
+                    } else if forDecode == 2 {
+                        let indexNumber = array3.firstIndex(of: char)
+                        decodeArray.append(Character(alphabet[indexNumber!]))
+                        forDecode = 0
+                        print(indexNumber!)
+                    } else {
+                        decodeArray.append(char)
+                    }
+                }
+            }
+            
+            let decodedAnswer = String(decodeArray)
+            
+            print("This is the encoded answer: \(encodedAnswer)")
+            print()
+            print("This is the decoded answer: \(decodedAnswer)")
+            
+            let sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
+            
+            textView.text = """
                     This is the entered string:
                     \(enteredString)
                     
                     This is the \(yourChoice == "encode" ? "Encoded": "Decoded") string:
                     \(sentence)
                     """
+        }
     }
         
 }
