@@ -231,7 +231,6 @@ class DetailViewController: UIViewController {
             var answerString: [Character] = []
             // Iterate over each character in the string
             for char in enteredString! {
-                    print(char)
                     if let value = myDict[String(char)] {
                         let num = alphabet.firstIndex(of: String(characters[number]))
                         let dictLetter = value[num!]
@@ -301,8 +300,6 @@ class DetailViewController: UIViewController {
 
         let enteredTextArray = Array(enteredString)
 
-        print(enteredTextArray)
-
         var answerArray: [Character] = []
 
         var isNext = 0
@@ -343,19 +340,14 @@ class DetailViewController: UIViewController {
                         let indexNumber = array1.firstIndex(of: char)
                         decodeArray.append(Character(alphabet[indexNumber!]))
                         forDecode = 1
-                        print(indexNumber!)
-                        
                     } else if forDecode == 1 {
                         let indexNumber = array2.firstIndex(of: char)
                         decodeArray.append(Character(alphabet[indexNumber!]))
                         forDecode = 2
-                        print(indexNumber!)
-                        
                     } else if forDecode == 2 {
                         let indexNumber = array3.firstIndex(of: char)
                         decodeArray.append(Character(alphabet[indexNumber!]))
                         forDecode = 0
-                        print(indexNumber!)
                     } else {
                         decodeArray.append(char)
                     }
