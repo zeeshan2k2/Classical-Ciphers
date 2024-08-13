@@ -84,6 +84,7 @@ class DetailViewController: UIViewController {
 
     
     @IBAction func encodeButtonTapped(_ sender: Any) {
+        doneButtonTapped()
         if cellTitle! == "Caesar Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
         } else if cellTitle! == "Vigenere Cipher" {
@@ -95,6 +96,7 @@ class DetailViewController: UIViewController {
     
 
     @IBAction func decodeButtonTapped(_ sender: Any) {
+        doneButtonTapped()
         if cellTitle! == "Caesar Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
         } else if cellTitle! == "Vigenere Cipher" {
