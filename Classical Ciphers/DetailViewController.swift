@@ -18,7 +18,7 @@ class DetailViewController: UIViewController {
     
     let specialCharacters: [String] = [   "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+",
                                           "[", "]", "{", "}", "\\", "|", ";", ":", "'", "\"", ",", ".", "<", ">",
-                                          "/", "?", "`", "~", "§", "±", "•", "∞", "¶", "€", "£", "¥", "©", "®", "™", "\"", " "    ]
+                                          "/", "?", "`", "~", "§", "±", "•", "∞", "¶", "€", "£", "¥", "©", "®", "™", "\"", " ", "‘", "“", "’", "”" ]
     
     let numbers: [String] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     
@@ -292,15 +292,27 @@ class DetailViewController: UIViewController {
     
     
     
+    
+    
     func polyalphabeticCipher(yourChoice: String) {
 
         let array1: [Character] = ["m", "q", "a", "f", "p", "b", "z", "c", "h", "n", "d", "g", "r", "l", "t", "o", "e", "x", "w", "y", "j", "k", "s", "u", "v", "i"]
         let array2: [Character] = ["g", "h", "w", "r", "j", "c", "o", "e", "s", "f", "a", "l", "m", "n", "p", "t", "u", "v", "x", "y", "i", "d", "k", "q", "b", "z"]
         let array3: [Character] = ["l", "d", "k", "w", "b", "y", "z", "t", "q", "i", "p", "x", "e", "c", "f", "h", "a", "u", "m", "n", "r", "v", "j", "o", "s", "g"]
 
-        let enteredString: String = textField.text!.lowercased()
+        let enteredString = textField.text!.lowercased()
+        
+//        let enteredString = textField.text?.lowercased()
+//            .replacingOccurrences(of: "‘", with: "'")
+//            .replacingOccurrences(of: "’", with: "'")
+//            .replacingOccurrences(of: "“", with: "\"")
+//            .replacingOccurrences(of: "”", with: "\"") ?? ""
 
         let enteredTextArray = Array(enteredString)
+
+        print("this text entered", enteredString)
+        
+        print("This is enteredTextArray \(enteredTextArray)")
 
         var answerArray: [Character] = []
 
@@ -313,9 +325,9 @@ class DetailViewController: UIViewController {
         } else {
             for char in enteredTextArray {
                 let indexNumber = alphabet.firstIndex(of: String(char))
-                
                 if specialCharacters.contains(String(char)) || numbers.contains(String(char)) {
                     answerArray.append(char)
+                    print("found a special char")
                 } else {
                     if isNext == 0 {
                         answerArray.append(array1[indexNumber!])
