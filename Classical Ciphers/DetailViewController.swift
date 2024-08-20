@@ -301,12 +301,6 @@ class DetailViewController: UIViewController {
         let array3: [Character] = ["l", "d", "k", "w", "b", "y", "z", "t", "q", "i", "p", "x", "e", "c", "f", "h", "a", "u", "m", "n", "r", "v", "j", "o", "s", "g"]
 
         let enteredString = textField.text!.lowercased()
-        
-//        let enteredString = textField.text?.lowercased()
-//            .replacingOccurrences(of: "‘", with: "'")
-//            .replacingOccurrences(of: "’", with: "'")
-//            .replacingOccurrences(of: "“", with: "\"")
-//            .replacingOccurrences(of: "”", with: "\"") ?? ""
 
         let enteredTextArray = Array(enteredString)
 
