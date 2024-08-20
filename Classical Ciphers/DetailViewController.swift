@@ -233,16 +233,16 @@ class DetailViewController: UIViewController {
             var answerString: [Character] = []
             // Iterate over each character in the string
             for char in enteredString! {
-                    if let value = myDict[String(char)] {
-                        let num = alphabet.firstIndex(of: String(characters[number]))
-                        let dictLetter = value[num!]
-                        answerString.append(Character(dictLetter))
-                    } else {
-                        answerString.append(char)
-                        print("Key: \(char) not found in dictionary for encoding.")
-                    }
-                    number += 1
-
+                if let value = myDict[String(char)] {
+                    let num = alphabet.firstIndex(of: String(characters[number]))
+                    let dictLetter = value[num!]
+                    answerString.append(Character(dictLetter))
+                } else {
+                    answerString.append(char)
+                    print("Key: \(char) not found in dictionary for encoding.")
+                }
+                number += 1
+                
             }
             
             let encodedAnswer = String(answerString)
@@ -251,10 +251,13 @@ class DetailViewController: UIViewController {
             var numberForDecoded = 0
             var num1 = 0
             
+            
+            print("This is ciphered text \(cipheredText)")
             // to decode
             for char in cipheredText {
-                if specialCharacters.contains(String(char)) {
+                if specialCharacters.contains(String(char)) || String(char) == " " {
                     decodedString.append(char)
+                    numberForDecoded += 1
                 } else {
                     if let value = myDict[String(char)] {
                         let num = value.firstIndex(of: String(enteredStringArray[numberForDecoded]))
