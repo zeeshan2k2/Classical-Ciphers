@@ -12,7 +12,9 @@ class DetailViewController: UIViewController {
     let alphabets: [String] = [  "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G",
                                  "h", "H", "i", "I", "j", "J", "k", "K", "l", "L", "m", "M", "n", "N",
                                  "o", "O", "p", "P", "q", "Q", "r", "R", "s", "S", "t", "T", "u", "U",
-                                 "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z"                         ]
+                                 "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z"                        ]
+    
+    let Alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",                       "T", "U", "V", "W", "X", "Y", "Z"]
     
     let alphabet: [String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",                              "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     
@@ -201,6 +203,7 @@ class DetailViewController: UIViewController {
             let cipher = cipherTextField.text!.lowercased()
             var cipheredText = ""
             let enteredString = textField.text?.lowercased()
+            let enteredString1 = textField.text
             
             var keyIndex = 0
             for i in alphabet {
@@ -217,9 +220,12 @@ class DetailViewController: UIViewController {
             }
             
             for character in enteredString! {
-                if character == " " {
+                if character == " " || specialCharacters.contains(String(character)) {
                     // Preserve spaces in the extended key
-                    cipheredText.append(" ")
+                    cipheredText.append(character)
+                } else if Alphabet.contains(String(character)) {
+                    cipheredText.append(cipher[cipher.index(cipher.startIndex, offsetBy: keyIndex)])
+                    keyIndex = (keyIndex + 1) % cipher.count
                 } else {
                     // Append the next character from the key
                     cipheredText.append(cipher[cipher.index(cipher.startIndex, offsetBy: keyIndex)])
@@ -238,12 +244,22 @@ class DetailViewController: UIViewController {
                     let dictLetter = value[num!]
                     answerString.append(Character(dictLetter))
                 } else {
-                    answerString.append(char)
-                    print("Key: \(char) not found in dictionary for encoding.")
+                    //        answerString.append(char)
+                    //        print("Key: \(char) not found in dictionary for encoding.")
+                    if let value = myDict[String(char).lowercased()] {
+                        let num = alphabet.firstIndex(of: String(characters[number]))
+                        let dictLetter = value[num!]
+                        answerString.append(Character(dictLetter.uppercased()))
+                    } else {
+                        answerString.append(char)
+                        //        print("Key: \(char) not found in dictionary for encoding.")
+                    }
                 }
+                
                 number += 1
                 
             }
+            print(answerString)
             
             let encodedAnswer = String(answerString)
             var decodedString: [Character] = []
@@ -280,11 +296,29 @@ class DetailViewController: UIViewController {
             let decodedAnswer = String(decodedString)
             print()
             
-            let sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
+            var sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
+            
+            // Split both texts into arrays of words using split(separator:)
+            let originalWords = enteredString1!.split(separator: " ")
+            var newWords = sentence.split(separator: " ")
+
+            // Convert newWords to an array of Strings to allow modification
+            var newWordsArray = newWords.map { String($0) }
+
+            // Capitalize words in the new text based on the original text
+            for (index, word) in originalWords.enumerated() {
+                if word.first?.isUppercase == true {
+                    newWordsArray[index] = newWordsArray[index].capitalized
+                }
+            }
+
+            // Join the words back into a single string
+            sentence = newWordsArray.joined(separator: " ")
+            
             
             textView.text = """
                 This is the entered string:
-                \(enteredString!)
+                \(enteredString1!)
                 
                 This is the \(yourChoice == "encode" ? "Encoded": "Decoded") string:
                 \(sentence)
@@ -371,7 +405,7 @@ class DetailViewController: UIViewController {
             print()
             print("This is the decoded answer: \(decodedAnswer)")
             
-            let sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
+            var sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
             
             textView.text = """
                     This is the entered string:
