@@ -132,6 +132,18 @@ class DetailViewController: UIViewController {
         }
     }
     
+    
+    func textViewText(enteredString: String, yourChoice: String, sentence: String) {
+        textView.text = """
+            This is the entered string:
+            \(enteredString)
+            
+            This is the \(yourChoice == "encode" ? "Encoded": "Decoded") string:
+            \(sentence)
+            """
+    }
+    
+    
     func caesarCipher(yourChoice: String) {
         
         if textField.text?.isEmpty == true || cipherTextField.text?.isEmpty == true {
@@ -144,7 +156,7 @@ class DetailViewController: UIViewController {
             
             let numEntered = shiftValue! * 2
             let minusedNum = totalNoOfAlphabets - numEntered
-            var wordArray: [String] = []
+            var answerArray: [String] = []
             var sentence: String = ""
             var num: Int = 0
             let enteredString = textField.text
@@ -160,27 +172,21 @@ class DetailViewController: UIViewController {
                             num = (yourChoice == "encode") ? minusedNum : numEntered
                             instanceNumber = alphabets.firstIndex(of: String(instance))!
                             if instanceNumber < num {
-                                wordArray.append(alphabets[num == minusedNum ? instanceNumber + numEntered : instanceNumber + minusedNum])
+                                answerArray.append(alphabets[num == minusedNum ? instanceNumber + numEntered : instanceNumber + minusedNum])
                             } else if instanceNumber >= num {
-                                wordArray.append(alphabets[instanceNumber - num])
+                                answerArray.append(alphabets[instanceNumber - num])
                             }
                         } else if specialCharacters.contains(String(instance)) {
-                            wordArray.append(String(instance))
+                            answerArray.append(String(instance))
                         } else {
-                            wordArray.append(String(instance))
+                            answerArray.append(String(instance))
                         }
                     }
                 }
                 
-                sentence = wordArray.joined()
+                sentence = answerArray.joined()
                 
-                textView.text = """
-                    This is the entered string:
-                    \(enteredString!)
-                    
-                    This is the \(yourChoice == "encode" ? "Encoded": "Decoded") string:
-                    \(sentence)
-                    """
+                textViewText(enteredString: enteredString!, yourChoice: yourChoice, sentence: sentence)
                 
             }
         }
@@ -244,15 +250,12 @@ class DetailViewController: UIViewController {
                     let dictLetter = value[num!]
                     answerString.append(Character(dictLetter))
                 } else {
-                    //        answerString.append(char)
-                    //        print("Key: \(char) not found in dictionary for encoding.")
                     if let value = myDict[String(char).lowercased()] {
                         let num = alphabet.firstIndex(of: String(characters[number]))
                         let dictLetter = value[num!]
                         answerString.append(Character(dictLetter.uppercased()))
                     } else {
                         answerString.append(char)
-                        //        print("Key: \(char) not found in dictionary for encoding.")
                     }
                 }
                 
@@ -315,14 +318,7 @@ class DetailViewController: UIViewController {
             // Join the words back into a single string
             sentence = newWordsArray.joined(separator: " ")
             
-            
-            textView.text = """
-                This is the entered string:
-                \(enteredString1!)
-                
-                This is the \(yourChoice == "encode" ? "Encoded": "Decoded") string:
-                \(sentence)
-                """
+            textViewText(enteredString: enteredString!, yourChoice: yourChoice, sentence: sentence)
         }
         
     }
@@ -345,7 +341,7 @@ class DetailViewController: UIViewController {
         
         print("This is enteredTextArray \(enteredTextArray)")
 
-        var answerArray: [Character] = []
+        var encodeArray: [Character] = []
 
         var isNext = 0
         
@@ -357,23 +353,23 @@ class DetailViewController: UIViewController {
             for char in enteredTextArray {
                 let indexNumber = alphabet.firstIndex(of: String(char))
                 if specialCharacters.contains(String(char)) || numbers.contains(String(char)) {
-                    answerArray.append(char)
+                    encodeArray.append(char)
                     print("found a special char")
                 } else {
                     if isNext == 0 {
-                        answerArray.append(array1[indexNumber!])
+                        encodeArray.append(array1[indexNumber!])
                         isNext = 1
                     } else if isNext == 1 {
-                        answerArray.append(array2[indexNumber!])
+                        encodeArray.append(array2[indexNumber!])
                         isNext = 2
                     } else if isNext == 2 {
-                        answerArray.append(array3[indexNumber!])
+                        encodeArray.append(array3[indexNumber!])
                         isNext = 0
                     }
                 }
             }
             
-            let encodedAnswer = String(answerArray)
+            let encodedAnswer = String(encodeArray)
             
             var decodeArray: [Character] = []
             
@@ -405,15 +401,9 @@ class DetailViewController: UIViewController {
             print()
             print("This is the decoded answer: \(decodedAnswer)")
             
-            var sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
+            let sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
             
-            textView.text = """
-                    This is the entered string:
-                    \(enteredString)
-                    
-                    This is the \(yourChoice == "encode" ? "Encoded": "Decoded") string:
-                    \(sentence)
-                    """
+            textViewText(enteredString: enteredString, yourChoice: yourChoice, sentence: sentence)
         }
     }
         
