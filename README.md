@@ -1,24 +1,21 @@
-<h1>Data Passing in Swift Apps</h1>
+<h1>Classical Ciphers iOS App</h1>
 
-<p>This repository contains examples of data passing techniques in Swift for iOS development. The focus is on demonstrating various methods for forwarding and backward data passing between view controllers.</p>
+<p>This iOS application, developed using UIKit, allows users to explore and experiment with classical encryption techniques. The app currently supports popular ciphers, including Caesar, Vigenère, Polyalphabetic, and others. Users can enter text, encode it using the selected cipher, and decode messages back to their original form, offering an interactive way to learn about classical encryption methods.</p>
 
-<h1>Data Passing Techniques</h1>
-
-<h2>1. Direct Property Assignment (Forward Data Passing)</h2>
-<p><strong>Description:</strong> This method is used to set properties directly on a view controller before presenting it. It's straightforward and typically used for simple forward data passing.</p>
-<p><strong>Example:</strong> Passing data from <code>ViewController</code> to <code>TextViewController</code>.</p>
-
-<h2>2. Callback-Based Data Passing (Backward Data Passing)</h2>
-<p><strong>Description:</strong> This method uses completion handlers (callbacks) to send data back to the previous view controller after it is dismissed. It's useful for handling results or updates after an action.</p>
-<p><strong>Example:</strong> Sending text from <code>TextViewController</code> back to <code>ViewController</code> using a completion handler.</p>
-
-<h2>3. Delegate Methods (Both Forward and Backward Data Passing)</h2>
-<p><strong>Description:</strong> Delegates are a flexible way to handle communication between view controllers or objects. They allow for both forward and backward data passing with a decoupled approach.</p>
-<p><strong>Example:</strong> Implementing a delegate protocol to pass text from <code>TextViewController</code> to <code>ViewController</code>.</p>
-
-<h1>Repository Structure</h1>
+<h2>Features</h2>
 <ul>
-  <li><strong>Forward Data Passing:</strong> Shows how to use direct property assignment for passing data forward.</li>
-  <li><strong>Backward Data Passing:</strong> Demonstrates using callback methods to pass data backward.</li>
-  <li><strong>Delegate Methods:</strong> Illustrates using delegate protocols for both forward and backward data passing.</li>
+  <li>Encode and decode text using classical ciphers.</li>
+  <li>Support for Caesar Cipher with customizable shift values.</li>
+  <li>Vigenère Cipher implementation with user-defined keys.</li>
+  <li>Polyalphabetic Cipher for more complex encryption.</li>
+  <li>Intuitive user interface designed with UIKit.</li>
 </ul>
+
+<h2>Getting Started</h2>
+<p>To get started with the app, clone the repository and open the project in Xcode. Run the application on a simulator or a real device to explore the functionality of different ciphers. Ensure you have Xcode installed and are running macOS.</p>
+
+<h2>Contributing</h2>
+<p>Contributions are welcome! If you have suggestions for improvements or want to add more ciphers, feel free to fork the repository and submit a pull request.</p>
+
+<h2>License</h2>
+<p>This project is licensed under the MIT License - see the LICENSE file for details.</p>
