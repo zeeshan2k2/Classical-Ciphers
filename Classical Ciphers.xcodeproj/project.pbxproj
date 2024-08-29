@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C1A2D9E12C80C99F00CF79AB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A2D9E02C80C99F00CF79AB /* Extensions.swift */; };
 		C1A9AD572C5FA44600F1A1DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A9AD562C5FA44600F1A1DA /* AppDelegate.swift */; };
 		C1A9AD592C5FA44600F1A1DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A9AD582C5FA44600F1A1DA /* SceneDelegate.swift */; };
 		C1A9AD5B2C5FA44600F1A1DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A9AD5A2C5FA44600F1A1DA /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C1A2D9E02C80C99F00CF79AB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C1A9AD532C5FA44600F1A1DA /* Classical Ciphers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Classical Ciphers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1A9AD562C5FA44600F1A1DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1A9AD582C5FA44600F1A1DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				C1A9AD582C5FA44600F1A1DA /* SceneDelegate.swift */,
 				C1A9AD5A2C5FA44600F1A1DA /* ViewController.swift */,
 				C1A9AD6A2C5FA8D200F1A1DA /* DetailViewController.swift */,
+				C1A2D9E02C80C99F00CF79AB /* Extensions.swift */,
 				C1A9AD5C2C5FA44600F1A1DA /* Main.storyboard */,
 				C1A9AD5F2C5FA44800F1A1DA /* Assets.xcassets */,
 				C1A9AD612C5FA44800F1A1DA /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1A2D9E12C80C99F00CF79AB /* Extensions.swift in Sources */,
 				C1A9AD5B2C5FA44600F1A1DA /* ViewController.swift in Sources */,
 				C1A9AD572C5FA44600F1A1DA /* AppDelegate.swift in Sources */,
 				C1A9AD592C5FA44600F1A1DA /* SceneDelegate.swift in Sources */,

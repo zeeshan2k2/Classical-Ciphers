@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class DetailViewController: UIViewController {
     
     let alphabets: [String] = [  "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "f", "F", "g", "G",
@@ -28,7 +29,9 @@ class DetailViewController: UIViewController {
     
     @IBOutlet var textField: UITextField!
     
-    @IBOutlet var textFieldBgView: UIView!
+    @IBOutlet var textFieldBgViewUpper: UIView!
+    
+    @IBOutlet var textFieldBgViewLower: UIView!
     
     @IBOutlet var cipherTextField: UITextField!
     
@@ -57,6 +60,10 @@ class DetailViewController: UIViewController {
             cipherTextField.placeholder = "Cipher Key"
         } else if cellTitle! == "Polyalphabetic Cipher" {
             cipherTextField.isHidden = true
+            textFieldBgViewLower.isHidden = true
+        } else if cellTitle! == "One Time Pad Cipher" {
+            cipherTextField.isHidden = true
+            textFieldBgViewLower.isHidden = true
         }
         
         
@@ -93,6 +100,8 @@ class DetailViewController: UIViewController {
             implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
         } else if cellTitle! == "Polyalphabetic Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
+        } else if cellTitle! == "One Time Pad Cipher" {
+            implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
         }
     }
     
@@ -104,6 +113,8 @@ class DetailViewController: UIViewController {
         } else if cellTitle! == "Vigenere Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
         } else if cellTitle! == "Polyalphabetic Cipher" {
+            implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
+        } else if cellTitle! == "One Time Pad Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
         }
         
@@ -129,6 +140,8 @@ class DetailViewController: UIViewController {
             vigenereCipher(yourChoice: yourChoice)
         } else if typeOfCipher == "Polyalphabetic Cipher" {
             polyalphabeticCipher(yourChoice: yourChoice)
+        } else if typeOfCipher == "One Time Pad Cipher" {
+            oneTimePadCipher(yourChoice: yourChoice)
         }
     }
     
@@ -407,4 +420,121 @@ class DetailViewController: UIViewController {
         }
     }
         
+    
+    
+    
+    func oneTimePadCipher(yourChoice: String) {
+        
+        if textField.text?.isEmpty == true {
+            textView.text = "Enter valid input"
+        } else {
+            // Example usage
+            let enteredString = textField.text!
+            
+            // Convert entered string to ASCII
+            let inputASCII = stringToASCII(enteredString)
+            let inputLength = inputASCII.count
+            
+            // Generate a random key with the same length as the entered string in bytes
+            let key = randomKey(length: inputLength)
+            print("Generated Key Length: \(key.count)")
+            
+            // Adjust key length to match the input string length
+            let keyAdjusted = adjustKeyToMatchLength(key, toLength: inputLength)
+            
+            // Convert ASCII arrays to binary strings
+            let inputBinary = asciiToBinary(inputASCII)
+            let keyBinary = asciiToBinary(keyAdjusted)
+            
+            // Debugging: Check lengths of binary arrays
+            print("Input Binary Length: \(inputBinary.count)")
+            print("Key Binary Length: \(keyBinary.count)")
+            
+            // Perform XOR operation on binary strings
+            let xorBinary = xorBinaryStrings(inputBinary, keyBinary)
+            
+            // Debugging: Check length of XOR binary array
+            print("XOR Binary Length: \(xorBinary.count)")
+            
+            // Convert binary data to Base64 for inspection
+            let encodedAnswer = binaryToBase64(xorBinary)
+            print("Encrypted Base64: \(encodedAnswer)")
+            
+            // To decode, convert Base64 back to binary and perform XOR with the same key
+            let decryptedBinary = base64ToBinary(encodedAnswer)
+            let decryptedBinaryAgain = xorBinaryStrings(decryptedBinary, keyBinary)
+            let decodedAnswer = binaryToString(decryptedBinaryAgain)
+            
+            print("Decrypted String: \(decodedAnswer)")
+            
+            let sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
+            
+            textViewText(enteredString: enteredString, yourChoice: yourChoice, sentence: sentence)
+        }
+
+    }
+    
+    func stringToASCII(_ input: String) -> [UInt8] {
+        guard let data = input.data(using: .utf8) else {
+            fatalError("Failed to convert string to data")
+        }
+        return [UInt8](data)
+    }
+
+    func asciiToBinary(_ asciiValues: [UInt8]) -> [String] {
+        return asciiValues.map { String($0, radix: 2).padLeft(to: 8, with: "0") }
+    }
+
+    func binaryToASCII(_ binaryValues: [String]) -> [UInt8] {
+        return binaryValues.compactMap { UInt8($0, radix: 2) }
+    }
+
+    func xorBinaryStrings(_ binary1: [String], _ binary2: [String]) -> [String] {
+        guard binary1.count == binary2.count else {
+            fatalError("Binary arrays must be of the same length")
+        }
+        
+        return zip(binary1, binary2).map { (b1, b2) in
+            String(zip(b1, b2).map { $0.0 == $0.1 ? "0" : "1" }.joined())
+        }
+    }
+
+    func binaryToBase64(_ binaryValues: [String]) -> String {
+        let asciiValues = binaryToASCII(binaryValues)
+        let data = Data(asciiValues)
+        return data.base64EncodedString()
+    }
+
+    func base64ToBinary(_ base64String: String) -> [String] {
+        guard let data = Data(base64Encoded: base64String),
+              let asciiValues = [UInt8](data) as? [UInt8] else {
+            fatalError("Failed to convert Base64 to data")
+        }
+        return asciiToBinary(asciiValues)
+    }
+
+    func binaryToString(_ binaryValues: [String]) -> String {
+        let asciiValues = binaryToASCII(binaryValues)
+        let data = Data(asciiValues)
+        return String(data: data, encoding: .utf8) ?? "Conversion failed"
+    }
+
+    
+    func randomKey(length: Int) -> [UInt8] {
+        return (0..<length).map { _ in UInt8.random(in: 0...255) }
+    }
+
+    func adjustKeyToMatchLength(_ key: [UInt8], toLength length: Int) -> [UInt8] {
+        var adjustedKeyBytes = key
+        while adjustedKeyBytes.count < length {
+            adjustedKeyBytes.append(contentsOf: key)
+        }
+        if adjustedKeyBytes.count > length {
+            adjustedKeyBytes = Array(adjustedKeyBytes.prefix(length))
+        }
+        return adjustedKeyBytes
+    }
+    
 }
+
+
