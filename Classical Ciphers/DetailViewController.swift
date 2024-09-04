@@ -434,28 +434,19 @@ class DetailViewController: UIViewController {
             let inputLength = inputASCII.count
             
             let key = randomKey(length: inputLength)
-//            print("Generated Key Length: \(key.count)")
             
             let keyAdjusted = adjustKeyToMatchLength(key, toLength: inputLength)
             
             let inputBinary = asciiToBinary(inputASCII)
             let keyBinary = asciiToBinary(keyAdjusted)
-            
-//            print("Input Binary Length: \(inputBinary.count)")
-//            print("Key Binary Length: \(keyBinary.count)")
-            
             let xorBinary = xorBinaryStrings(inputBinary, keyBinary)
             
-//            print("XOR Binary Length: \(xorBinary.count)")
-            
             let encodedAnswer = binaryToBase64(xorBinary)
-//            print("Encrypted Base64: \(encodedAnswer)")
             
             let decryptedBinary = base64ToBinary(encodedAnswer)
             let decryptedBinaryAgain = xorBinaryStrings(decryptedBinary, keyBinary)
             let decodedAnswer = binaryToString(decryptedBinaryAgain)
-            
-//            print("Decrypted String: \(decodedAnswer)")
+        
             
             let sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
             
