@@ -61,7 +61,7 @@ class DetailViewController: UIViewController {
         } else if cellTitle! == "Polyalphabetic Cipher" {
             cipherTextField.isHidden = true
             textFieldBgViewLower.isHidden = true
-        } else if cellTitle! == "One Time Pad Cipher" {
+        } else if cellTitle! == "One-Time Pad Cipher" {
             cipherTextField.isHidden = true
             textFieldBgViewLower.isHidden = true
         }
@@ -100,7 +100,7 @@ class DetailViewController: UIViewController {
             implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
         } else if cellTitle! == "Polyalphabetic Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
-        } else if cellTitle! == "One Time Pad Cipher" {
+        } else if cellTitle! == "One-Time Pad Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
         }
     }
@@ -114,7 +114,7 @@ class DetailViewController: UIViewController {
             implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
         } else if cellTitle! == "Polyalphabetic Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
-        } else if cellTitle! == "One Time Pad Cipher" {
+        } else if cellTitle! == "One-Time Pad Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
         }
         
@@ -140,7 +140,7 @@ class DetailViewController: UIViewController {
             vigenereCipher(yourChoice: yourChoice)
         } else if typeOfCipher == "Polyalphabetic Cipher" {
             polyalphabeticCipher(yourChoice: yourChoice)
-        } else if typeOfCipher == "One Time Pad Cipher" {
+        } else if typeOfCipher == "One-Time Pad Cipher" {
             oneTimePadCipher(yourChoice: yourChoice)
         }
     }
@@ -428,44 +428,34 @@ class DetailViewController: UIViewController {
         if textField.text?.isEmpty == true {
             textView.text = "Enter valid input"
         } else {
-            // Example usage
             let enteredString = textField.text!
-            
-            // Convert entered string to ASCII
+        
             let inputASCII = stringToASCII(enteredString)
             let inputLength = inputASCII.count
             
-            // Generate a random key with the same length as the entered string in bytes
             let key = randomKey(length: inputLength)
-            print("Generated Key Length: \(key.count)")
+//            print("Generated Key Length: \(key.count)")
             
-            // Adjust key length to match the input string length
             let keyAdjusted = adjustKeyToMatchLength(key, toLength: inputLength)
             
-            // Convert ASCII arrays to binary strings
             let inputBinary = asciiToBinary(inputASCII)
             let keyBinary = asciiToBinary(keyAdjusted)
             
-            // Debugging: Check lengths of binary arrays
-            print("Input Binary Length: \(inputBinary.count)")
-            print("Key Binary Length: \(keyBinary.count)")
+//            print("Input Binary Length: \(inputBinary.count)")
+//            print("Key Binary Length: \(keyBinary.count)")
             
-            // Perform XOR operation on binary strings
             let xorBinary = xorBinaryStrings(inputBinary, keyBinary)
             
-            // Debugging: Check length of XOR binary array
-            print("XOR Binary Length: \(xorBinary.count)")
+//            print("XOR Binary Length: \(xorBinary.count)")
             
-            // Convert binary data to Base64 for inspection
             let encodedAnswer = binaryToBase64(xorBinary)
-            print("Encrypted Base64: \(encodedAnswer)")
+//            print("Encrypted Base64: \(encodedAnswer)")
             
-            // To decode, convert Base64 back to binary and perform XOR with the same key
             let decryptedBinary = base64ToBinary(encodedAnswer)
             let decryptedBinaryAgain = xorBinaryStrings(decryptedBinary, keyBinary)
             let decodedAnswer = binaryToString(decryptedBinaryAgain)
             
-            print("Decrypted String: \(decodedAnswer)")
+//            print("Decrypted String: \(decodedAnswer)")
             
             let sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
             

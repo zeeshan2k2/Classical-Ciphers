@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UITableViewController {
     
-    let typesOfCiphers: [String] = ["Caesar Cipher", "Vigenere Cipher", "Polyalphabetic Cipher", "One Time Pad Cipher"]
+    let typesOfCiphers: [String] = ["Caesar Cipher", "Vigenere Cipher", "Polyalphabetic Cipher", "One-Time Pad Cipher"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
