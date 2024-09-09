@@ -84,6 +84,10 @@ class DetailViewController: UIViewController {
        // Assign the toolbar to both text fields
        textField.inputAccessoryView = toolbar
        cipherTextField.inputAccessoryView = toolbar
+        
+       // Add a tap gesture recognizer to dismiss the keyboard
+       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doneButtonTapped))
+       view.addGestureRecognizer(tapGesture)
     }
     
     @objc func doneButtonTapped() {
