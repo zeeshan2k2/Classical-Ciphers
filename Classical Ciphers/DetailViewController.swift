@@ -64,6 +64,12 @@ class DetailViewController: UIViewController {
         } else if cellTitle! == "One-Time Pad Cipher" {
             cipherTextField.isHidden = true
             textFieldBgViewLower.isHidden = true
+        } else if cellTitle! == "Playfair Cipher" {
+            cipherTextField.placeholder = "Cipher Key"
+        } else if cellTitle! == "Rail Fence Cipher" {
+            cipherTextField.isHidden = false
+            textFieldBgViewLower.isHidden = false
+            cipherTextField.placeholder = "Enter Depth Value"
         }
         
         
@@ -106,6 +112,10 @@ class DetailViewController: UIViewController {
             implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
         } else if cellTitle! == "One-Time Pad Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
+        } else if cellTitle! == "Playfair Cipher" {
+            implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
+        } else if cellTitle! == "Rail Fence Cipher" {
+            implementation(typeOfCipher: cellTitle!, yourChoice: "encode")
         }
     }
     
@@ -119,6 +129,10 @@ class DetailViewController: UIViewController {
         } else if cellTitle! == "Polyalphabetic Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
         } else if cellTitle! == "One-Time Pad Cipher" {
+            implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
+        } else if cellTitle! == "Playfair Cipher" {
+            implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
+        } else if cellTitle! == "Rail Fence Cipher" {
             implementation(typeOfCipher: cellTitle!, yourChoice: "decode")
         }
         
@@ -146,6 +160,10 @@ class DetailViewController: UIViewController {
             polyalphabeticCipher(yourChoice: yourChoice)
         } else if typeOfCipher == "One-Time Pad Cipher" {
             oneTimePadCipher(yourChoice: yourChoice)
+        } else if typeOfCipher == "Playfair Cipher" {
+            playfairCiphenr(yourChoice: yourChoice)
+        } else if typeOfCipher == "Rail Fence Cipher" {
+            railFenceCipher(yourChoice: yourChoice)
         }
     }
     
@@ -520,6 +538,226 @@ class DetailViewController: UIViewController {
         return adjustedKeyBytes
     }
     
+    
+    
+    
+    
+//  Playfair Cipher
+
+    func playfairCiphenr(yourChoice: String) {
+        let key = cipherTextField.text ?? ""
+        let keySquare = generateKeySquare(key: key)
+
+        let plaintext = textField.text ?? ""
+        print("Plaintext: \(plaintext)")
+
+        let encodedAnswer = encrypt(plaintext, using: keySquare)
+        print("Encrypted: \(encodedAnswer)")
+
+        var decodedAnswer = decrypt(encodedAnswer, using: keySquare)
+        print("Decrypted: \(decodedAnswer)")
+
+        decodedAnswer = formatCiphertext(ciphertext: decodedAnswer, plaintext: plaintext).lowercased()
+        print("Formatted Decrypted Text: \(decodedAnswer)")
+        
+        let sentence = yourChoice == "encode" ? encodedAnswer: decodedAnswer
+        
+        textViewText(enteredString: plaintext, yourChoice: yourChoice, sentence: sentence)
+    }
+    
+    func generateKeySquare(key: String) -> [[Character]] {
+        var key = key.uppercased().replacingOccurrences(of: "J", with: "I")
+        var seen = Set<Character>()
+        var keyString = ""
+
+        for char in key {
+            if char.isLetter && !seen.contains(char) {
+                seen.insert(char)
+                keyString.append(char)
+            }
+        }
+
+        for char in Alphabet {
+            if !seen.contains(char) {
+                keyString.append(char)
+            }
+        }
+
+        var keySquare: [[Character]] = []
+        for i in 0..<5 {
+            let start = keyString.index(keyString.startIndex, offsetBy: i * 5)
+            let end = keyString.index(start, offsetBy: 4)
+            keySquare.append(Array(keyString[start...end]))
+        }
+
+        return keySquare
+    }
+
+    func prepareText(_ text: String) -> [String] {
+        var text = text.uppercased().replacingOccurrences(of: "J", with: "I")
+        text = text.filter { $0.isLetter }
+        var pairs = [String]()
+
+        var i = 0
+        while i < text.count {
+            let firstChar = text[text.index(text.startIndex, offsetBy: i)]
+            let secondCharIndex = text.index(text.startIndex, offsetBy: i + 1)
+            let secondChar = (secondCharIndex < text.endIndex) ? text[secondCharIndex] : "X"
+
+            if firstChar == secondChar {
+                pairs.append(String(firstChar) + "X")
+                i += 1
+            } else {
+                pairs.append(String(firstChar) + String(secondChar))
+                i += 2
+            }
+        }
+
+        return pairs
+    }
+
+    func findPosition(of char: Character, in keySquare: [[Character]]) -> (Int, Int) {
+        for (rowIndex, row) in keySquare.enumerated() {
+            if let colIndex = row.firstIndex(of: char) {
+                return (rowIndex, colIndex)
+            }
+        }
+        fatalError("Character not found in key square")
+    }
+
+    func encryptPair(_ first: Character, _ second: Character, using keySquare: [[Character]]) -> String {
+        let (row1, col1) = findPosition(of: first, in: keySquare)
+        let (row2, col2) = findPosition(of: second, in: keySquare)
+
+        if row1 == row2 {
+            return String(keySquare[row1][(col1 + 1) % 5]) + String(keySquare[row2][(col2 + 1) % 5])
+        } else if col1 == col2 {
+            return String(keySquare[(row1 + 1) % 5][col1]) + String(keySquare[(row2 + 1) % 5][col2])
+        } else {
+            return String(keySquare[row1][col2]) + String(keySquare[row2][col1])
+        }
+    }
+
+    func decryptPair(_ first: Character, _ second: Character, using keySquare: [[Character]]) -> String {
+        let (row1, col1) = findPosition(of: first, in: keySquare)
+        let (row2, col2) = findPosition(of: second, in: keySquare)
+
+        if row1 == row2 {
+            return String(keySquare[row1][(col1 + 4) % 5]) + String(keySquare[row2][(col2 + 4) % 5])
+        } else if col1 == col2 {
+            return String(keySquare[(row1 + 4) % 5][col1]) + String(keySquare[(row2 + 4) % 5][col2])
+        } else {
+            return String(keySquare[row1][col2]) + String(keySquare[row2][col1])
+        }
+    }
+
+    func encrypt(_ text: String, using keySquare: [[Character]]) -> String {
+        let textPairs = prepareText(text)
+        return textPairs.map { encryptPair($0.first!, $0.last!, using: keySquare) }.joined()
+    }
+
+    func decrypt(_ text: String, using keySquare: [[Character]]) -> String {
+        let textPairs = stride(from: 0, to: text.count, by: 2).map {
+            let startIndex = text.index(text.startIndex, offsetBy: $0)
+            let endIndex = text.index(startIndex, offsetBy: 2)
+            return String(text[startIndex..<endIndex])
+        }
+
+        let decryptedPairs = textPairs.map { decryptPair($0.first!, $0.last!, using: keySquare) }
+        let result = decryptedPairs.joined()
+
+        return result.replacingOccurrences(of: "X", with: "").trimmingCharacters(in: .whitespaces)
+    }
+
+    func formatCiphertext(ciphertext: String, plaintext: String) -> String {
+        let words = plaintext.split(separator: " ")
+        var result = ""
+        var index = ciphertext.startIndex
+
+        for (i, word) in words.enumerated() {
+            let wordLength = word.count
+            let endIndex = ciphertext.index(index, offsetBy: wordLength)
+            let wordCiphertext = ciphertext[index..<endIndex]
+
+            let formattedWord = String(wordCiphertext).uppercased()
+            result += formattedWord
+            index = endIndex
+
+            if i < words.count - 1 {
+                result += " "
+            }
+        }
+        
+        return result
+    }
+    
+    
+    
+//  rail fence cipher
+    func railFenceCipher(yourChoice: String) {
+        if textField.text?.isEmpty == true {
+            textView.text = "Enter valid input"
+        } else {
+            var enteredString = textField.text!
+            let numberOfRails = Int(cipherTextField.text ?? "2")
+            var rails: [[Character]] = Array(repeating: [], count: numberOfRails!)
+            
+            var isOdd = true
+            var currentRail = 0
+            
+            for letter in enteredString {
+                if isOdd {
+                    if letter == " " {
+                        rails[currentRail].append("-")
+                    } else {
+                        rails[currentRail].append(letter)
+                    }
+                    currentRail = (currentRail + 1) % numberOfRails!
+                    isOdd = false
+                } else {
+                    if letter == " " {
+                        rails[currentRail].append("-")
+                    } else {
+                        rails[currentRail].append(letter)
+                    }
+                    currentRail = (currentRail + 1) % numberOfRails!
+                    isOdd = true
+                }
+            }
+            
+            let encodedString = rails.flatMap { $0 }.map { String($0) }.joined()
+            
+            
+            for (index, rail) in rails.enumerated() {
+                print("Rail \(index + 1): \(String(rail))")
+            }
+            print("Cipher Text: \(encodedString)")
+            
+            
+            var decodedAnswer: [Character] = []
+            var railIndices = Array(repeating: 0, count: numberOfRails!)
+            var railLengths = rails.map { $0.count }
+            
+            
+            for i in 0..<enteredString.count {
+                let railIndex = i % numberOfRails!
+                if railIndices[railIndex] < railLengths[railIndex] {
+                    decodedAnswer.append(rails[railIndex][railIndices[railIndex]])
+                    railIndices[railIndex] += 1
+                }
+            }
+            
+            
+            let decodedString = String(decodedAnswer).replacingOccurrences(of: "-", with: " ")
+            
+            print("Decoded String: \(decodedString)")
+            
+            let sentence = yourChoice == "encode" ? encodedString: decodedString
+            
+            textViewText(enteredString: enteredString, yourChoice: yourChoice, sentence: sentence)
+        }
+    }
+
 }
 
 
