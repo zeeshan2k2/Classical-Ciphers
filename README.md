@@ -23,6 +23,6 @@
 <img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/classical%20cipher%20-%20app%20icon.png" width="150" height="150">
 <img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/screenshots/main%202.png" width="250" height="500">
 <img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/caesar%20cipher.png" width="250" height="500">
-<img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/vigenere%20cipher.png" width="250" height="500">
+<img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/screenshots/Vigenere%20Encoded.png" width="250" height="500">
 <img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/polyalphabetic%20cipher.png" width="250" height="500">
 <img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/One%20Time%20Pad.png" width="250" height="500">
