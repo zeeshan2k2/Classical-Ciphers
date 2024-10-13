@@ -25,4 +25,4 @@
 <img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/caesar%20cipher.png" width="250" height="500">
 <img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/screenshots/Vigenere%20Encoded.png" width="250" height="500">
 <img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/screenshots/Polyalphabetic%20Encoded.png" width="250" height="500">
-<img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/One%20Time%20Pad.png" width="250" height="500">
+<img src="https://github.com/zeeshan2k2/Classical-Ciphers/blob/main/screenshots/One-Time%20Pad%20Encoded.png" width="250" height="500">
